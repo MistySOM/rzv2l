@@ -18,13 +18,13 @@ then
 	source poky/oe-init-build-env
 	if [ -z $SDK ]; 
 	then
-		bitbake core-image-weston
+		time bitbake core-image-weston
 	else
-		bitbake core-image-weston
-		bitbake core-image-weston -c populate_sdk
+		time sh -c "bitbake core-image-weston && bitbake core-image-weston -c populate_sdk"
 	fi
 	echo "copying compiled images & SDK directory into 'out/'"
-	cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/ /home/yocto/rzv_vlp_v3.0.0/out/
+	cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/sdk/ /home/yocto/rzv_vlp_v3.0.0/out/
+	cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/images/ /home/yocto/rzv_vlp_v3.0.0/out/
 else
 	/bin/bash
 fi
