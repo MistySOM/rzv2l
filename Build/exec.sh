@@ -22,7 +22,7 @@ then
 	else
 		time sh -c "bitbake core-image-weston && bitbake core-image-weston -c populate_sdk"
 	fi
-	echo "copying compiled images & SDK directory into 'out/'"
+	echo "copying compiled images & SDK directories into 'out/'"
 	cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/sdk/ /home/yocto/rzv_vlp_v3.0.0/out/
 	cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/images/ /home/yocto/rzv_vlp_v3.0.0/out/
 else

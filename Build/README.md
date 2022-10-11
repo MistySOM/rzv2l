@@ -64,7 +64,6 @@ and the resources can simply be copied to the host with `docker cp  NAME:SRC DST
 ### Note to WSL users:
 Make sure to work with files on Linux mounts (avoid use of mounted Windows partitions)
 
-
 ### Files 
 Filesthat get downloaded by the Dockerfile on build are stored under:
 Z:\WebDownload\mh11\rzv2l\VerifiedLinuxPackage_v3.0.0
