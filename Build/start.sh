@@ -1,7 +1,9 @@
 #!/bin/bash
 #set -e
-#Check hostname is a hexadecimal number of 12 
 LOCALCONF="/home/yocto/rzv_vlp_v3.0.0/build/conf/local.conf"
+#Extract the machine name from the local configuration file
+MACHINE=`sed -n '/MACHINE/p' ${LOCALCONF} | grep -v '#' | awk '{print $3}' |sed 's/"//g'`
+#Check hostname is a hexadecimal number of 12 
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}

@@ -38,4 +38,6 @@ USER yocto
 RUN mkdir -p /home/yocto/rzv_vlp_v3.0.0/build/downloads
 RUN mkdir -p /home/yocto/rzv_vlp_v3.0.0/out
 WORKDIR /home/yocto
+# copy mist-som layer from the submodule 
+COPY meta-mistysom /home/yocto/rzv_vlp_v3.0.0/meta-mistysom
 CMD ["/home/yocto/exec.sh"]
