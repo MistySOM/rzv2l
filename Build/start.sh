@@ -56,7 +56,7 @@ then
 	sed -i 's/BB_NO_NETWORK = "0"/BB_NO_NETWORK = "1"/g' ${LOCALCONF}
 fi
 #addition of meta-mistysom layer to bblayers.conf
-sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\\n  ${TOPDIR}\/..\/meta-mistylwb5p\/meta-laird-cp \\/' /home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf
+sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\\n  ${TOPDIR}\/..\/meta-mistylwb5p\/meta-laird-cp-pre-3.4 \\/' /home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf
 ##Add installation of Python to local.conf
 #echo "IMAGE_INSTALL_append = \" python3\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
 #echo "IMAGE_INSTALL_append = \" python3-datetime\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
