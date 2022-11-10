@@ -1,3 +1,3 @@
 #!/bin/bash
-git submodule update --init --recursive
+git submodule update --init --recursive --remote
 docker build -t rzv2l_vlp_v3.0.0 .

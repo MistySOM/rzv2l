@@ -1,6 +1,7 @@
 #!/bin/bash
 #set -e
 LOCALCONF="/home/yocto/rzv_vlp_v3.0.0/build/conf/local.conf"
+BBLAYERS="/home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf"
 #Extract the machine name from the local configuration file
 MACHINE=`sed -n '/MACHINE/p' ${LOCALCONF} | grep -v '#' | awk '{print $3}' |sed 's/"//g'`
 #Check hostname is a hexadecimal number of 12 
@@ -55,8 +56,23 @@ if [ -z $DLOAD ];
 then
 	sed -i 's/BB_NO_NETWORK = "0"/BB_NO_NETWORK = "1"/g' ${LOCALCONF}
 fi
-#addition of meta-mistysom layer to bblayers.conf
-sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\\n  ${TOPDIR}\/..\/meta-mistylwb5p\/meta-laird-cp-pre-3.4 \\/' /home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf
+#Commend out incompatible license line
+sed -i 's/INCOMPATIBLE_LICENSE/#INCOMPATIBLE_LICENSE/g' ${LOCALCONF}
+#Remove meta-gplv2 line from BBLAYERS
+sed -i '/meta-gplv2/d' ${BBLAYERS}
+#Add configuration details for Laird LWB5+ module according to: https://github.com/LairdCP/meta-laird-cp/tree/lrd-10.0.0.x/meta-laird-cp-pre-3.4
+cat <<EOT >> ${LOCALCONF}
+
+BBMASK += " \\
+            meta-laird-cp-pre-3.4/recipes-packages/openssl \\
+            meta-laird-cp-pre-3.4/recipes-packages/.*/.*openssl10.* \\
+"
+
+PREFERRED_RPROVIDER_wireless-regdb-static = "wireless-regdb"
+
+EOT
+#addition of meta-mistysom & mistylwb5p layers to bblayers.conf
+sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\\n  ${TOPDIR}\/..\/meta-mistylwb5p\/meta-laird-cp-pre-3.4 \\/' ${BBLAYERS}
 ##Add installation of Python to local.conf
 #echo "IMAGE_INSTALL_append = \" python3\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
 #echo "IMAGE_INSTALL_append = \" python3-datetime\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
