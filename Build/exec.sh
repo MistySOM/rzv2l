@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 #Check hostname is a hexadecimal number of 12 
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname

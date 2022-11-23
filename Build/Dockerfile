@@ -23,11 +23,12 @@ RUN echo yocto:yocto | chpasswd
 RUN usermod -aG sudo yocto
 WORKDIR /home/yocto
 #COPY files 
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/oss_pkg_rzv_v3.0.0.7z
+#RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/oss_pkg_rzv_v3.0.0.7z
 RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/rzv_bsp_v3.0.0.tar.gz
 RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z13001ZJ-v1.2_EN.zip
 RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z15001ZJ-v0.58_EN.zip
 RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip
+RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/r11an0549ej0720-rzv2l-drpai-sp.zip
 COPY start.sh /home/yocto/
 COPY exec.sh /home/yocto/
 COPY get_fragments.sh /home/yocto/rzv_vlp_v3.0.0/

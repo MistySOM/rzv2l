@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 #Check hostname is a hexadecimal number of 12 
 LOCALCONF="/home/yocto/rzv_vlp_v3.0.0/build/conf/local.conf"
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
@@ -16,13 +16,19 @@ git config --global user.email "yocto@mistywest.com"
 git config --global user.name "Yocto"
 git config --global url.https://github.com/.insteadOf git://github.com/
 #exit 0
-mkdir $WORK
+if [ ! -d $WORK ];
+then
+	mkdir $WORK
+fi
 cd $WORK
 unzip ~/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip
 tar zxvf ./RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
+patch -p1 < ./RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
 cd $WORK
 unzip ~/RTK0EF0045Z13001ZJ-v1.2_EN.zip
 tar zxvf ./RTK0EF0045Z13001ZJ-v1.2_EN/meta-rz-features.tar.gz
+cd $WORK/meta-rz-features
+unzip ~/r11an0549ej0720-rzv2l-drpai-sp.zip
 cd $WORK
 unzip ~/RTK0EF0045Z15001ZJ-v0.58_EN.zip
 tar zxvf ./RTK0EF0045Z15001ZJ-v0.58_EN/meta-rz-features.tar.gz
