@@ -64,18 +64,12 @@ then
 fi
 #addition of meta-mistysom layer to bblayers.conf
 sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' /home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf
-##Add installation of Python to local.conf
-#echo "IMAGE_INSTALL_append = \" python3\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-datetime\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-io\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-core\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-multiprocessing\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
 #
 ##Add kconfig fragments to bb recipe
-#cd ~/rzv2l_bsp_v101/
-#FRAG=$(./get_fragments.sh)
-#echo "$FRAG" >> ~/rzv2l_bsp_v101/meta-rzv/recipes-kernel/linux/linux-renesas_4.19.bb
-#cp ~/rzv2l_bsp_v101/mw_fragments/* ~/rzv2l_bsp_v101/meta-rzv/recipes-kernel/linux/linux-renesas/
+cd ~/rzv_vlp_v3.0.0/
+FRAG=$(./get_fragments.sh)
+echo "$FRAG" >> ~/rzv_vlp_v3.0.0/meta-renesas/recipes-common/recipes-kernel/linux/linux-renesas_5.10.bb
+cp ~/rzv_vlp_v3.0.0/mw_fragments/* ~/rzv_vlp_v3.0.0/meta-renesas/recipes-common/recipes-kernel/linux/linux-renesas/
 #
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
