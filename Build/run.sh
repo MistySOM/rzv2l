@@ -10,7 +10,7 @@ usage() {
 }
 #OUTDIR is bind mopunted and will contain the compiled output from the container
 OUTDIR='output'
-CONTNAME="rzv2l_vlp_v3.0.0"
+CONTNAME="$(whoami)-rzv2l_vlp_v3.0.0"
 str="$*"
 if [[ $str == *"-c"* ]];
 then
@@ -54,7 +54,7 @@ fi
 	chmod 777 ${OUTDIR}
 if [ -z "${CPATH}" ]; 
 then
-  /usr/bin/docker run --privileged -it -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out ${CONTNAME}
+  /usr/bin/docker run --privileged -it --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
 else
 	chmod 777 ${CPATH}
 	#Create CPATH sub directories if they do not exist
@@ -68,5 +68,5 @@ else
 		mkdir ${CPATH}/sstate-cache
 		chmod 777 ${CPATH}/sstate-cache
 	fi
-	/usr/bin/docker run --privileged -it -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} ${CONTNAME}
+	/usr/bin/docker run --privileged -it --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi
