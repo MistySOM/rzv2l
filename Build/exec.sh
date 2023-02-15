@@ -19,11 +19,11 @@ then
 	if [ -z $SDK ]; #if $SDK is not set
 	then
 		time bitbake mistysom-image
-		echo "copying compiled images into 'output/'"
+		echo "copying compiled images into 'out/'"
 		cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/images/ /home/yocto/rzv_vlp_v3.0.0/out/
 	else
 		time sh -c "bitbake mistysom-image && bitbake mistysom-image -c populate_sdk"
-		echo "copying compiled images & SDK into 'output/'"
+		echo "copying compiled images & SDK directories into 'out/'"
 		cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/sdk/ /home/yocto/rzv_vlp_v3.0.0/out/
 		cp -r /home/yocto/rzv_vlp_v3.0.0/build/tmp/deploy/images/ /home/yocto/rzv_vlp_v3.0.0/out/
 	fi
