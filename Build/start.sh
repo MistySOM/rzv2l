@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 #Check hostname is a hexadecimal number of 12 
-LOCALCONF="/home/yocto/rzv_vlp_v3.0.0/build/conf/local.conf"
+LOCALCONF="${WORK}/build/conf/local.conf"
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
@@ -29,6 +29,7 @@ then
 	7z x ~/oss_pkg_rzv_v3.0.0.7z
 fi
 ##Apply DRPAI patch
+echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai ai-eva-sw\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
 #echo "applying drpai patch"
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
@@ -44,13 +45,7 @@ then
 	sed -i 's/BB_NO_NETWORK = "0"/BB_NO_NETWORK = "1"/g' ${LOCALCONF}
 fi
 #addition of meta-mistysom layer to bblayers.conf
-sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' /home/yocto/rzv_vlp_v3.0.0/build/conf/bblayers.conf
-#
-##Add kconfig fragments to bb recipe
-cd ~/rzv_vlp_v3.0.0/
-FRAG=$(./get_fragments.sh)
-echo "$FRAG" >> ~/rzv_vlp_v3.0.0/meta-renesas/recipes-common/recipes-kernel/linux/linux-renesas_5.10.bb
-cp ~/rzv_vlp_v3.0.0/mw_fragments/* ~/rzv_vlp_v3.0.0/meta-renesas/recipes-common/recipes-kernel/linux/linux-renesas/
+sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' ${WORK}/build/conf/bblayers.conf
 #
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
