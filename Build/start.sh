@@ -15,22 +15,7 @@ fi
 git config --global user.email "yocto@mistywest.com"
 git config --global user.name "Yocto"
 git config --global url.https://github.com/.insteadOf git://github.com/
-if [[ ! -e $WORK ]]; then #Check if dir already exists
-	mkdir $WORK #if not, create it
-fi
-cd $WORK
-unzip ~/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip -d ~
-tar zxvf ~/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
-patch -p1 < ~/RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_v300-to-v300update2.patch
-cd $WORK
-unzip ~/RTK0EF0045Z13001ZJ-v1.2_EN.zip -d ~
-tar zxvf ~/RTK0EF0045Z13001ZJ-v1.2_EN/meta-rz-features.tar.gz
-cd $WORK
-unzip ~/RTK0EF0045Z15001ZJ-v0.58_EN.zip -d ~
-tar zxvf ~/RTK0EF0045Z15001ZJ-v0.58_EN/meta-rz-features.tar.gz
-cd $WORK
-unzip -o ~/r11an0549ej0720-rzv2l-drpai-sp.zip -d ~/r11an0549ej0720-rzv2l-drpai-sp
-tar zxvf ~/r11an0549ej0720-rzv2l-drpai-sp/rzv2l_drpai-driver/meta-rz-features.tar.gz
+
 cd $WORK
 source poky/oe-init-build-env
 cd $WORK/build

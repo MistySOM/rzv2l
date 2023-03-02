@@ -22,24 +22,19 @@ RUN useradd -m yocto -s /bin/bash
 RUN echo yocto:yocto | chpasswd
 RUN usermod -aG sudo yocto
 WORKDIR /home/yocto
-#COPY files 
-#RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/oss_pkg_rzv_v3.0.0.7z
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/rzv_bsp_v3.0.0.tar.gz
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z13001ZJ-v1.2_EN.zip
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z15001ZJ-v0.58_EN.zip
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip
-RUN wget https://remote.mistywest.io/download/mh11/rzv2l/VerifiedLinuxPackage_v3.0.0/r11an0549ej0720-rzv2l-drpai-sp.zip
-COPY start.sh /home/yocto/
-COPY exec.sh /home/yocto/
-COPY get_fragments.sh /home/yocto/rzv_vlp_v3.0.0/
-COPY mw_fragments/*.cfg /home/yocto/rzv_vlp_v3.0.0/mw_fragments/
-RUN chown yocto:yocto -R /home/yocto/
+
 RUN apt-get -y install tree
 USER yocto
-RUN mkdir -p /home/yocto/rzv_vlp_v3.0.0/build/downloads
-RUN mkdir -p /home/yocto/rzv_vlp_v3.0.0/out
-# copy mistysom layer from the submodule 
-COPY meta-mistysom /home/yocto/rzv_vlp_v3.0.0/meta-mistysom
 
-WORKDIR /home/yocto
+#COPY files
+COPY prepare_yocto_env.sh /home/yocto
+RUN mkdir -p $WORK/build/downloads && \
+    mkdir -p $WORK/out && \
+    /home/yocto/prepare_yocto_env.sh
+
+COPY start.sh /home/yocto/
+COPY exec.sh /home/yocto/
+# copy mistysom layer from the submodule
+COPY --chown=yocto:yocto meta-mistysom $WORK/meta-mistysom
+
 CMD ["/home/yocto/exec.sh"]
