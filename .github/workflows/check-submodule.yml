@@ -25,4 +25,5 @@ jobs:
           echo "The submodule is set to $SOM_HEAD\n"
           SOM_ORIGIN = $(git rev-parse origin/$GITHUB_REF_NAME)
           echo "The origin/$GITHUB_REF_NAME is set to $SOM_ORIGIN"
-          [ $SOM_HEAD == SOM_ORIGIN ] 
+          [ $SOM_HEAD == SOM_ORIGIN ]
+        shell: bash
