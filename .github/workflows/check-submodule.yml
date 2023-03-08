@@ -21,9 +21,9 @@ jobs:
       - name: Check SHA hash of submodule and the master/develop branch
         run: |
           cd $GITHUB_WORKSPACE/Build/meta-mistysom
-          SOM_HEAD = $(git rev-parse HEAD)
+          SOM_HEAD=$(git rev-parse HEAD)
           echo "The submodule is set to $SOM_HEAD\n"
-          SOM_ORIGIN = $(git rev-parse origin/$GITHUB_REF_NAME)
+          SOM_ORIGIN=$(git rev-parse origin/$GITHUB_REF_NAME)
           echo "The origin/$GITHUB_REF_NAME is set to $SOM_ORIGIN"
           [ $SOM_HEAD == SOM_ORIGIN ]
         shell: bash
