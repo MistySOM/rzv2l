@@ -22,8 +22,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Build/meta-mistysom
           SOM_HEAD=$(git rev-parse HEAD)
-          echo "The submodule is set to $SOM_HEAD\n"
-          SOM_ORIGIN=$(git rev-parse $GITHUB_BASE_REF)
+          echo "The submodule is set to $SOM_HEAD"
+          echo "The submodule is on branch $GITHUB_BASE_REF"
+          SOM_ORIGIN=$(git rev-parse refs/remotes/origin/$GITHUB_BASE_REF)
           echo "The *$GITHUB_REF_NAME* branch is set to $SOM_ORIGIN"
           [ $SOM_HEAD == SOM_ORIGIN ]
         shell: bash
