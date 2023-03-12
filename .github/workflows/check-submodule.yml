@@ -23,4 +23,3 @@ jobs:
         with:
           path: Build/meta-mistysom
           branch: ${{ github.base_ref }}
-          require_head: true
