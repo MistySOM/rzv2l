@@ -17,18 +17,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - name: 'Get Branch Name'
-        uses: bhowell2/github-substring-action@v1.0.0
-        id: branch-name
-        with:
-          value: ${{ github.base_ref }}
-          index_of_str: "origin/"
 
       - name: 'Check Submodule Branch'
         uses: jtmullen/submodule-branch-check-action@v1.2.0
         with:
           path: Build/meta-mistysom
-          branch: ${{ steps.branch-name.outputs.substring }}
-          fetch_depth: 50
+          branch: ${{ github.base_ref }}
           require_head: true
