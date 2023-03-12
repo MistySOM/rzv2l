@@ -22,5 +22,6 @@ jobs:
         uses: jtmullen/submodule-branch-check-action@v1.2.0
         with:
           path: Build/meta-mistysom
-          branch: $GITHUB_BASE_REF
+          branch: ${{ github.ref_name }}
           fetch_depth: 50
+          require_head: true
