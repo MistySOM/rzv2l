@@ -18,12 +18,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Check SHA hash of submodule and the master/develop branch
-        run: |
-          REPO_FULL_NAME=$(git rev-parse --symbolic-full-name @{upstream})
-          echo "The repository HEAD is on $REPO_FULL_NAME"
-          cd $GITHUB_WORKSPACE/Build/meta-mistysom
-          SOM_FULL_NAME=$(git rev-parse --symbolic-full-name @{upstream})
-          echo "The submodule HEAD is on $SOM_FULL_NAME"
-          [ $REPO_FULL_NAME == $SOM_FULL_NAME ]
-        shell: bash
+      - name: 'Check submodule commit branch'
+        uses: jtmullen/submodule-branch-check-action@v1.2.0
+        with:
+          path: Build/meta-mistysom
+          branch: $GITHUB_BASE_REF
+          fetch_depth: 50
