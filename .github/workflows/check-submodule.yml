@@ -21,7 +21,7 @@ jobs:
       - name: Check SHA hash of submodule and the master/develop branch
         run: |
           REPO_FULL_NAME=$(git rev-parse --symbolic-full-name @)
-          echo "The repository HEAD is on $REPO_FULL_NAME
+          echo "The repository HEAD is on $REPO_FULL_NAME"
           cd $GITHUB_WORKSPACE/Build/meta-mistysom
           SOM_FULL_NAME=$(git rev-parse --symbolic-full-name @)
           echo "The submodule HEAD is on $SOM_FULL_NAME"
