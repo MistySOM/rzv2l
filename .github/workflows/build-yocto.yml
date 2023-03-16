@@ -1,0 +1,32 @@
+name: Build Yocto Image
+
+on:  
+  workflow_run:
+    workflows: [ "Check meta-mistysom Submodule" ]
+    branches: [ "master", "develop" ]
+    types: 
+      - completed
+    
+jobs:
+  build-yocto:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Build & Run the container
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build the Docker image
+      run: cd Build && ./build.sh -n; 
+    
+    - name: Run the Docker image and build output files with SDK
+      run: cd Build && ./run.sh -s;
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-output-files
+        path: |
+          Output/Image-smarc-rzv2l.bin
+          Output/r9a07g044l2-smarc.dtb
+          Output/mistysom-image-smarc-rzv2l.tar.bz2
