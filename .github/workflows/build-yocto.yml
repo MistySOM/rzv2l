@@ -24,10 +24,10 @@ jobs:
       run: cd Build && ./run.sh -c /home/github/rzv2l-cache -s;
       
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: output-files
         path: |
-          Output/Image-smarc-rzv2l.bin
-          Output/r9a07g044l2-smarc.dtb
-          Output/mistysom-image-smarc-rzv2l.tar.bz2
+          Build/output/images/smarc-rzv2l/Image-smarc-rzv2l.bin
+          Build/output/images/smarc-rzv2l/r9a07g054l2-smarc.dtb
+          Build/output/images/smarc-rzv2l/mistysom-image-smarc-rzv2l.tar.bz2
