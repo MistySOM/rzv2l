@@ -20,8 +20,10 @@ jobs:
 
       - name: Assign variable based on branch name
         run: |
-          is_push=${{ 'push' == github.event }}
-          target_branch=$([[ $is_push == true ]] && echo ${{ github.ref_name }} || echo ${{ github.base_ref }})
+          target_branch=${{ github.base_ref }}
+          # Set another value if the variable is empty
+          (($target_branch)) || target_branch=${{ github.ref_name }}
+          
           echo "The target branch is: $target_branch"
 
           # Set the value of the environment variable with the same name as the variable
