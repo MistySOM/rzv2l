@@ -30,7 +30,7 @@ jobs:
           echo "target_branch=$target_branch" >> $GITHUB_ENV
           
       - name: 'Check Submodule Branch'
-        uses: jtmullen/submodule-branch-check-action@v1.2.1
+        uses: jtmullen/submodule-branch-check-action@v1.2.2
         with:
           path: Build/meta-mistysom
           branch: ${{ env.target_branch }}
