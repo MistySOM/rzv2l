@@ -1,7 +1,7 @@
 #!/bin/bash
-#set -e
+set -e
 #Check hostname is a hexadecimal number of 12 
-LOCALCONF="/home/yocto/rzv_vlp_v3.0.0/build/conf/local.conf"
+LOCALCONF="${WORK}/build/conf/local.conf"
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
@@ -15,17 +15,7 @@ fi
 git config --global user.email "yocto@mistywest.com"
 git config --global user.name "Yocto"
 git config --global url.https://github.com/.insteadOf git://github.com/
-#exit 0
-mkdir $WORK
-cd $WORK
-unzip ~/RTK0EF0045Z0024AZJ-v3.0.0-update2.zip
-tar zxvf ./RTK0EF0045Z0024AZJ-v3.0.0-update2/rzv_bsp_v3.0.0.tar.gz
-cd $WORK
-unzip ~/RTK0EF0045Z13001ZJ-v1.2_EN.zip
-tar zxvf ./RTK0EF0045Z13001ZJ-v1.2_EN/meta-rz-features.tar.gz
-cd $WORK
-unzip ~/RTK0EF0045Z15001ZJ-v0.58_EN.zip
-tar zxvf ./RTK0EF0045Z15001ZJ-v0.58_EN/meta-rz-features.tar.gz
+
 cd $WORK
 source poky/oe-init-build-env
 cd $WORK/build
@@ -39,6 +29,7 @@ then
 	7z x ~/oss_pkg_rzv_v3.0.0.7z
 fi
 ##Apply DRPAI patch
+echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai ai-eva-sw\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
 #echo "applying drpai patch"
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
@@ -53,24 +44,14 @@ if [ -z $DLOAD ];
 then
 	sed -i 's/BB_NO_NETWORK = "0"/BB_NO_NETWORK = "1"/g' ${LOCALCONF}
 fi
-##Add installation of Python to local.conf
-#echo "IMAGE_INSTALL_append = \" python3\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-datetime\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-io\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-core\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#echo "IMAGE_INSTALL_append = \" python3-multiprocessing\"">> /home/yocto/rzv2l_bsp_v101/build/conf/local.conf
-#
-##Add kconfig fragments to bb recipe
-#cd ~/rzv2l_bsp_v101/
-#FRAG=$(./get_fragments.sh)
-#echo "$FRAG" >> ~/rzv2l_bsp_v101/meta-rzv/recipes-kernel/linux/linux-renesas_4.19.bb
-#cp ~/rzv2l_bsp_v101/mw_fragments/* ~/rzv2l_bsp_v101/meta-rzv/recipes-kernel/linux/linux-renesas/
+#addition of meta-mistysom layer to bblayers.conf
+sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' ${WORK}/build/conf/bblayers.conf
 #
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
     run the following commands to start the build:
     'cd ~/rzv_vlp_v3.0.0/'
     'source poky/oe-init-build-env'
-    'bitbake core-image-weston'"
+    'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
 

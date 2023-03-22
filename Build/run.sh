@@ -10,7 +10,9 @@ usage() {
 }
 #OUTDIR is bind mopunted and will contain the compiled output from the container
 OUTDIR='output'
-CONTNAME="rzv2l_vlp_v3.0.0"
+CONTNAME="$(whoami)-rzv2l_vlp_v3.0.0"
+test -t 1 && USE_TTY="-it"
+MPU="rzv2l"
 str="$*"
 if [[ $str == *"-c"* ]];
 then
@@ -54,17 +56,20 @@ fi
 	chmod 777 ${OUTDIR}
 if [ -z "${CPATH}" ]; 
 then
-  /usr/bin/docker run --privileged -it -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out ${CONTNAME}
+	chmod 777 ${CPATH}/downloads
+	chmod 777 ${CPATH}/sstate-cache/${MPU}
+  /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
 else
-	chmod 777 ${CPATH}
 	#Create CPATH sub directories if they do not exist
 	if [ ! -d "${CPATH}/downloads" ];
 	then
 		mkdir ${CPATH}/downloads
 	fi
-	if [ ! -d "${CPATH}/sstate-cache" ];
+	if [ ! -d "${CPATH}/sstate-cache/${MPU}" ];
 	then
-		mkdir ${CPATH}/sstate-cache
+		mkdir ${CPATH}/sstate-cache/${MPU}
 	fi
-	/usr/bin/docker run --privileged -it -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} ${CONTNAME}
+	chmod 777 ${CPATH}/downloads
+	chmod 777 ${CPATH}/sstate-cache/${MPU}
+	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi
