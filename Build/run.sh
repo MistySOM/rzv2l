@@ -3,14 +3,15 @@
 
 usage() {
     echo "    Usage:
-    $ $0 -c|--cpath : path to local cache (download & sstate)
-    $ $0 -n|--no : starts container but does not invoke bitbake
-    $ $0 -s|--sdk : start in developer mode, 
-                    invokes building of SDK"
+    $ $0 -b|--branch :  attach current branch name when running the container
+    $ $0 -c|--cpath :   path to local cache (download & sstate)
+    $ $0 -n|--no :      starts container but does not invoke bitbake
+    $ $0 -s|--sdk :     start in developer mode,
+                            invokes building of SDK
+    $ $0 -v|--verbose   run script in verbose mode"
 }
 #OUTDIR is bind mopunted and will contain the compiled output from the container
 OUTDIR='output'
-CONTNAME="$(whoami)-rzv2l_vlp_v3.0.0"
 test -t 1 && USE_TTY="-it"
 MPU="rzv2l"
 str="$*"
@@ -25,6 +26,10 @@ then
 fi
 while [[ $# -gt 0 ]]; do
     case $1 in
+      -b|--branch)
+        BRANCH="_$(git branch --show-current)"
+        shift #past argument
+      ;;
       -c|--cpath)
         CPATH="$2"
 	DLOAD="1"
@@ -34,12 +39,14 @@ while [[ $# -gt 0 ]]; do
       -n|--no)
         NO="1"
         shift #past argument
-        shift #past value
       ;;
       -s|--sdk)
         SDK="1"
         shift #past argument
-        shift #past value
+      ;;
+      -v|--verbose)
+        VERBOSE="1"
+        shift #past argument
       ;;
       -*|--*)
         echo "Unknown argument $1"
@@ -48,16 +55,18 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 done
-#Create OUTDIR if iot doesn't exist
+CONTNAME="$(whoami)-rzv2l_vlp_v3.0.0${BRANCH}"
+if [ ! -z ${VERBOSE} ]; then
+  IGNORE_OUTPUT="2>/dev/null"
+fi
+#Create OUTDIR if it doesn't exist
 if [ ! -d "${OUTDIR}" ];
 then
 	mkdir ${OUTDIR}
 fi
-	chmod 777 ${OUTDIR}
+chmod 777 ${OUTDIR} ${IGNORE_OUTPUT}
 if [ -z "${CPATH}" ]; 
 then
-	chmod 777 ${CPATH}/downloads
-	chmod 777 ${CPATH}/sstate-cache/${MPU}
   /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
 else
 	#Create CPATH sub directories if they do not exist
@@ -69,7 +78,7 @@ else
 	then
 		mkdir ${CPATH}/sstate-cache/${MPU}
 	fi
-	chmod 777 ${CPATH}/downloads
-	chmod 777 ${CPATH}/sstate-cache/${MPU}
+	chmod -R 777 ${CPATH}/downloads ${IGNORE_OUTPUT}
+	chmod -R 777 ${CPATH}/sstate-cache/${MPU} ${IGNORE_OUTPUT}
 	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi
