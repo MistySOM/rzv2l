@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 #Check hostname is a hexadecimal number of 12 
+SOMHOSTNAME="MistySOM-V2L"
 LOCALCONF="${WORK}/build/conf/local.conf"
+YOCTODIR="/home/yocto/rzv_vlp_v3.0.0/" 
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
@@ -41,6 +43,8 @@ NUM_CPU=$(((mem+swp)/1000/1000/4))
 sed -i "1 i\PARALLEL_MAKE = \"-j ${NUM_CPU}\"\nBB_NUMBER_THREADS = \"${NUM_CPU}\"" ${LOCALCONF}
 # Comment out the line that flags GPLv3 as an incompatible license
 sed -i '/^INCOMPATIBLE_LICENSE = \"GPLv3 GPLv3+\"/ s/./#&/' ${LOCALCONF}
+# append hostname to local.conf
+echo "hostname_pn-base-files = \"${SOMHOSTNAME}\"" >> ${LOCALCONF}
 #build offline tools, without network access
 if [ -z $DLOAD ];
 then
@@ -48,11 +52,15 @@ then
 fi
 #addition of meta-mistysom layer to bblayers.conf
 sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' ${WORK}/build/conf/bblayers.conf
-#
+
+# add dunfell compatibility to layers wehre they're missing to avoid WARNING
+echo "LAYERSERIES_COMPAT_qt5-layer = \"dunfell\"" >> ${YOCTODIR}/meta-qt5/conf/layer.conf
+echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${YOCTODIR}/meta-rz-features/conf/layer.conf 
+
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
     run the following commands to start the build:
-    'cd ~/rzv_vlp_v3.0.0/'
+    'cd ${YOCTODIR}'
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
