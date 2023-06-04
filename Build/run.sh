@@ -64,7 +64,7 @@ if [ ! -d "${OUTDIR}" ];
 then
 	mkdir ${OUTDIR}
 fi
-chmod 777 ${OUTDIR} ${IGNORE_OUTPUT}
+chmod +w ${OUTDIR} ${IGNORE_OUTPUT}
 ret=$?
 if [ $ret -ne 0 ];
 then
