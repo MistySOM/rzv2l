@@ -3,12 +3,12 @@
 
 usage() {
     echo "    Usage:
-    $ $0 -b|--branch :  attach current branch name when running the container
-    $ $0 -c|--cpath :   path to local cache (download & sstate)
-    $ $0 -n|--no :      starts container but does not invoke bitbake
-    $ $0 -s|--sdk :     start in developer mode,
-                            invokes building of SDK
-    $ $0 -v|--verbose   run script in verbose mode"
+    $ $0 -b|--branch :	attach current branch name when running the container
+    $ $0 -c|--cpath :	path to local cache (download & sstate)
+    $ $0 -n|--no :	starts container but does not invoke bitbake,
+				start in developer mode
+     $ $0 -s|--sdk :	invokes building of SDK
+    $ $0 -v|--verbose	run script in verbose mode"
 }
 #OUTDIR is bind mopunted and will contain the compiled output from the container
 OUTDIR='output'
@@ -78,7 +78,5 @@ else
 	then
 		mkdir ${CPATH}/sstate-cache/${MPU}
 	fi
-	chmod -R 777 ${CPATH}/downloads ${IGNORE_OUTPUT}
-	chmod -R 777 ${CPATH}/sstate-cache/${MPU} ${IGNORE_OUTPUT}
 	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi

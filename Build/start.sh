@@ -4,6 +4,7 @@ set -e
 SOMHOSTNAME="MistySOM-V2L"
 LOCALCONF="${WORK}/build/conf/local.conf"
 YOCTODIR="/home/yocto/rzv_vlp_v3.0.0/" 
+PASSWD="yocto"
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
@@ -54,13 +55,18 @@ fi
 sed -i 's/renesas \\/&\n  ${TOPDIR}\/..\/meta-mistysom \\/' ${WORK}/build/conf/bblayers.conf
 
 # add dunfell compatibility to layers wehre they're missing to avoid WARNING
-echo "LAYERSERIES_COMPAT_qt5-layer = \"dunfell\"" >> ${YOCTODIR}/meta-qt5/conf/layer.conf
-echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${YOCTODIR}/meta-rz-features/conf/layer.conf 
+echo "LAYERSERIES_COMPAT_qt5-layer = \"dunfell\"" >> ${WORK}/meta-qt5/conf/layer.conf
+echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${WORK}/meta-rz-features/conf/layer.conf 
+
+#set permissions for downloads & sstate-cache directories
+echo ${PASSWD} | sudo -S chmod -R 777 ${WORK}/build/downloads
+echo ${PASSWD} | sudo -S chmod -R 777 ${WORK}/build/sstate-cache
+
 
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
     run the following commands to start the build:
-    'cd ${YOCTODIR}'
+    'cd ${WORK}'
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
