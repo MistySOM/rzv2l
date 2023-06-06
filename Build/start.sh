@@ -3,8 +3,6 @@ set -e
 #Check hostname is a hexadecimal number of 12 
 SOMHOSTNAME="MistySOM-V2L"
 LOCALCONF="${WORK}/build/conf/local.conf"
-YOCTODIR="/home/yocto/rzv_vlp_v3.0.0/" 
-PASSWD="yocto"
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
