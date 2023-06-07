@@ -76,11 +76,9 @@ then
   /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
 else
 	#Create CPATH sub directories if they do not exist
-	if [ ! -d "${CPATH}/downloads" ];
-	then
-		mkdir -p ${CPATH}/downloads
-		mkdir -p ${CPATH}/sstate-cache/${MPU}
-	fi
+	mkdir -p ${CPATH}/downloads
+	mkdir -p ${CPATH}/sstate-cache/${MPU}
+
 	chmod -R +w ${CPATH}
 	ret=$?
 	if [ $ret -ne 0 ];
