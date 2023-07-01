@@ -3,12 +3,12 @@
 
 usage() {
     echo "    Usage:
-    $ $0 -b|--branch :  attach current branch name when running the container
-    $ $0 -c|--cpath :   path to local cache (download & sstate)
-    $ $0 -n|--no :      starts container but does not invoke bitbake
-    $ $0 -s|--sdk :     start in developer mode,
-                            invokes building of SDK
-    $ $0 -v|--verbose   run script in verbose mode"
+    $ $0 -b|--branch :	attach current branch name when running the container
+    $ $0 -c|--cpath :	path to local cache (download & sstate)
+    $ $0 -n|--no :	starts container but does not invoke bitbake,
+				start in developer mode
+     $ $0 -s|--sdk :	invokes building of SDK
+    $ $0 -v|--verbose	run script in verbose mode"
 }
 #OUTDIR is bind mopunted and will contain the compiled output from the container
 OUTDIR='output'
@@ -64,21 +64,27 @@ if [ ! -d "${OUTDIR}" ];
 then
 	mkdir ${OUTDIR}
 fi
-chmod 777 ${OUTDIR} ${IGNORE_OUTPUT}
+chmod +w ${OUTDIR} ${IGNORE_OUTPUT}
+ret=$?
+if [ $ret -ne 0 ];
+then
+	echo "Unable to obtain full acess  permissions to ${OUTDIR} and its sub directories, edit the permissions of ${OUTDIR} accordingly! exit"
+	exit -1
+fi
 if [ -z "${CPATH}" ]; 
 then
   /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
 else
 	#Create CPATH sub directories if they do not exist
-	if [ ! -d "${CPATH}/downloads" ];
+	mkdir -p ${CPATH}/downloads
+	mkdir -p ${CPATH}/sstate-cache/${MPU}
+
+	chmod -R +w ${CPATH}
+	ret=$?
+	if [ $ret -ne 0 ];
 	then
-		mkdir ${CPATH}/downloads
+		echo "Unable to obtain write permissions to ${CPATH} and its sub directories, edit the permissions of ${CPATH} accordingly! exit"
+		exit -1
 	fi
-	if [ ! -d "${CPATH}/sstate-cache/${MPU}" ];
-	then
-		mkdir ${CPATH}/sstate-cache/${MPU}
-	fi
-	chmod -R 777 ${CPATH}/downloads ${IGNORE_OUTPUT}
-	chmod -R 777 ${CPATH}/sstate-cache/${MPU} ${IGNORE_OUTPUT}
-	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
+	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out -v "${CPATH}/downloads":/home/yocto/rzv_vlp_v3.0.0/build/downloads -v "${CPATH}/sstate-cache/${MPU}/":/home/yocto/rzv_vlp_v3.0.0/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi
