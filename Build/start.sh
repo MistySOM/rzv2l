@@ -60,11 +60,7 @@ echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${WORK}/meta-rz-features/
 echo "    ------------------------------------------------
     SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
     run the following commands to start the build:
-<<<<<<< HEAD
-    'cd ${YOCTODIR}'
-=======
     'cd ${WORK}'
->>>>>>> origin/develop
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
