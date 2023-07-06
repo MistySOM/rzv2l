@@ -1,3 +1,8 @@
 #!/bin/bash
-git submodule update --init --recursive --remote
-docker build -t rzv2l_vlp_v3.0.0 .
+if [ "$1" == "-b" ]; then
+	IMAGE_NAME="$(whoami)-rzv2l_vlp_v3.0.0_$(git branch --show-current)"
+else
+	IMAGE_NAME="$(whoami)-rzv2l_vlp_v3.0.0"
+fi
+docker build -t ${IMAGE_NAME}:latest .
+(docker images | grep "^<none" | awk '{print $3}' | xargs docker rmi) || :
