@@ -11,7 +11,7 @@ on:
     
 jobs:
   build-yocto:
-    runs-on: self-hosted
+    runs-on: DC02
     
     steps:
     - uses: actions/checkout@v3
