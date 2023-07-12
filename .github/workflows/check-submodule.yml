@@ -29,9 +29,16 @@ jobs:
           # Set the value of the environment variable with the same name as the variable
           echo "target_branch=$target_branch" >> $GITHUB_ENV
           
-      - name: 'Check Submodule Branch'
+      - name: 'Check meta-mistysom Submodule Branch'
         uses: jtmullen/submodule-branch-check-action@v1.2.2
         with:
           path: Build/meta-mistysom
+          branch: ${{ env.target_branch }}
+          require_head: true
+
+      - name: 'Check meta-econsys Submodule Branch'
+        uses: jtmullen/submodule-branch-check-action@v1.2.2
+        with:
+          path: Build/meta-econsys
           branch: ${{ env.target_branch }}
           require_head: true
