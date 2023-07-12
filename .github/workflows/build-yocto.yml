@@ -31,4 +31,6 @@ jobs:
         path: |
           Build/output/images/smarc-rzv2l/Image-smarc-rzv2l.bin
           Build/output/images/smarc-rzv2l/r9a07g054l2-smarc.dtb
+          Build/output/images/smarc-rzv2l/r9a07g054l2-smarc-ar0234.dtb
+          Build/output/images/smarc-rzv2l/r9a07g054l2-smarc-imx462.dtb
           Build/output/images/smarc-rzv2l/mistysom-image-smarc-rzv2l.tar.bz2
