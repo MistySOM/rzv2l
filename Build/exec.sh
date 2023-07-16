@@ -6,6 +6,7 @@ OUTDIR=$WORK/out
 echo $hname
 len=${#hname}
 if [[ ! "$len" -eq 12 ]];
+then
     echo "ERROR: this script needs to be run inside the Yocto build container!"
     exit
 fi
