@@ -34,12 +34,10 @@ echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai ai-eva-sw\"" >> ${WORK}/meta-
 #echo "applying drpai patch"
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
-swp=`cat /proc/meminfo | grep "SwapTotal"|awk '{print $2}'`
-mem=`cat /proc/meminfo | grep "MemTotal"|awk '{print $2}'`
-NUM_CPU=$(((mem+swp)/1000/1000/4))
-#NUM_CPU=`nproc`
-##Update number of CPUs in local.conf
-sed -i "1 i\PARALLEL_MAKE = \"-j ${NUM_CPU}\"\nBB_NUMBER_THREADS = \"${NUM_CPU}\"" ${LOCALCONF}
+
+## Update number of CPUs in local.conf
+(NUM_CPU=$(nproc) && echo "BB_NUMBER_THREADS = \"$((NUM_CPU*2))\"" >> ${LOCALCONF}) || :
+
 # Comment out the line that flags GPLv3 as an incompatible license
 sed -i '/^INCOMPATIBLE_LICENSE = \"GPLv3 GPLv3+\"/ s/./#&/' ${LOCALCONF}
 # append hostname to local.conf
