@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT2 }}
         run: |
-            gh pr merge ${{ github.event.pull_request.number }} -m
+            gh pr merge ${{ github.event.pull_request.number }} -m --auto
 
       - name: Fast-Forward develop
         if: steps.check_review_status.outputs.review_requests == ''
