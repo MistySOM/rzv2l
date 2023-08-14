@@ -1,14 +1,15 @@
 name: Release Submition
 
 on: 
-  push:
-    branches: [master]
+    workflow_run:
+        workflows: ["Build Yocto Image"]
+        branches: [master]
+        types:
+            - completed
 
 jobs:
   fast-forward-develop:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -21,11 +22,23 @@ jobs:
             git push --force origin/develop
 
   release-submittion:
-    runs-on: ubuntu-latest
+    runs-on: DC02
     permissions:
       contents: write
     steps:
     - uses: actions/checkout@v3
+
+    - name: Generate Tag
+      id: generate_tag
+      run: |
+        tag=$(git describe --tags --abbrev=0)
+        IFS='.' read -ra parts <<< "$tag"
+        last_part=${parts[-1]}
+        last_part=$((last_part + 1))
+        parts[-1]=$last_part
+        new_tag=$(IFS='.'; echo "${parts[*]}")
+        echo "tag=$new_tag" >> $GITHUB_OUTPUT
+
     - uses: ncipollo/release-action@v1.12.0
       with:
         draft: true
@@ -34,4 +47,5 @@ jobs:
         repo: master
         artifactErrorsFailBuild: true
         replacesArtifacts: true
-        artifacts: "mistysom-image-smarc-rzv2l.wic.bz2"
+        tag: ${{ steps.generate_tag.outputs.tag }}
+        artifacts: "/home/github/mistysom-image-smarc-rzv2l.wic.bz2"
