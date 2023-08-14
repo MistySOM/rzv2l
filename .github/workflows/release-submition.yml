@@ -19,7 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT2 }}
         run: |
-            git push --force origin/develop
+            git push --force origin develop
 
   release-submittion:
     runs-on: DC02
@@ -27,6 +27,8 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - name: Generate Tag
       id: generate_tag
