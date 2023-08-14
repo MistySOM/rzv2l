@@ -18,7 +18,7 @@ jobs:
 
       - name: Fast-Forward develop
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT2 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             git merge origin/master
             git push --force
@@ -45,6 +45,8 @@ jobs:
         echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
 
     - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT2 }}
       run: |
         gh release create \
             --draft --generate-notes --latest \
