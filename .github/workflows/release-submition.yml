@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             git merge origin/master
-            git push --force
+            git push --force origin HEAD:develop
 
   release-submittion:
     runs-on: DC02
@@ -43,6 +43,13 @@ jobs:
         new_tag=$(IFS='.'; echo "${parts[*]}")
         echo "old_tag=$tag" >> $GITHUB_OUTPUT
         echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+
+    - name: Remove duplicate release
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT2 }}
+      run: |
+        gh release delete ${{ steps.generate_tag.outputs.new_tag }} --yes --cleanup-tag
 
     - name: Create Release
       env:
