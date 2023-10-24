@@ -56,8 +56,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 CONTNAME="$(whoami)-rzv2l_vlp_v3.0.0${BRANCH}"
-#Create OUTDIR if it doesn't exist
+#Create OUTDIR if it doesn't exist and chmod it to 777
 mkdir -p ${OUTDIR}
+chmod 777 ${OUTDIR}
 if [ -z "${CPATH}" ]; 
 then
   /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/rzv_vlp_v3.0.0/out --name ${CONTNAME} ${CONTNAME}
