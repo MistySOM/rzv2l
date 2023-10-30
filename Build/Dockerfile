@@ -33,6 +33,7 @@ RUN mkdir -p $WORK/build/downloads && \
 
 COPY start.sh /home/yocto/
 COPY exec.sh /home/yocto/
+COPY inc/ /home/yocto/inc/
 # copy mistysom layer from the submodule
 COPY --chown=yocto:yocto meta-mistysom $WORK/meta-mistysom
 COPY --chown=yocto:yocto meta-mistylwb5p $WORK/meta-mistylwb5p

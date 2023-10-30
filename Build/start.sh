@@ -84,5 +84,8 @@ echo "    ------------------------------------------------
     'cd ${WORK}'
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
-cd ~/${NAME}
+cd ~
+# Copy inc files to fix the shortcomings in Renesas' BSP
+cp ~/inc/openssl.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
+cp ~/inc/glib2.0.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
 
