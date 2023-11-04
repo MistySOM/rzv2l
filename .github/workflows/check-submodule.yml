@@ -2,10 +2,10 @@ name: Check meta-mistysom Submodule
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -40,6 +40,7 @@ jobs:
 
       - name: 'Check meta-econsys Submodule Branch'
         uses: jtmullen/submodule-branch-check-action@v1.2.2
+        if: ${{ env.target_branch }} != "for-wifi-usb-dongle"
         with:
           path: Build/meta-econsys
           branch: ${{ env.target_branch }}
