@@ -40,7 +40,7 @@ jobs:
 
       - name: 'Check meta-econsys Submodule Branch'
         uses: jtmullen/submodule-branch-check-action@v1.2.2
-        if: ${{ env.target_branch != "for-wifi-usb-dongle" }}
+        if: ${{ env.target_branch != 'for-wifi-usb-dongle' }}
         with:
           path: Build/meta-econsys
           branch: ${{ env.target_branch }}
