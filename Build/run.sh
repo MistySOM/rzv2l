@@ -57,8 +57,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 CONTNAME="$(whoami)-${NAME}${BRANCH}"
-#Create OUTDIR if it doesn't exist
+#Create OUTDIR if it doesn't exist and chmod it to 777
 mkdir -p ${OUTDIR}
+chmod 777 ${OUTDIR}
 if [ -z "${CPATH}" ]; 
 then
   /usr/bin/docker run --privileged ${USE_TTY} --rm -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} -v "${PWD}/${OUTDIR}":/home/yocto/${DIRNAME}/out --name ${CONTNAME} ${CONTNAME}
