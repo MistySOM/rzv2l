@@ -57,7 +57,7 @@ EOT
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
 sed -i 's/renesas \\/&\n'\
 '  ${TOPDIR}\/..\/meta-mistysom \\\n'\
-'  ${TOPDIR}\/..\/meta-econsys \\\n'\
+'  ${TOPDIR}\/..\/meta-econsys \\'\
 '/' ${WORK}/build/conf/bblayers.conf
 
 # Disable recipes, tried BBMASK but was not working
