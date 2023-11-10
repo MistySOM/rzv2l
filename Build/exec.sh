@@ -32,11 +32,21 @@ then
 		time bitbake mistysom-image
 		echo "copying compiled images into 'out/'"
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
+		cd ${OUTDIR}
+		rm smarc-rzv2l/bl2*
+		rm smarc-rzv2l/fip*
+		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec
+		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec
 	else
 		time sh -c "bitbake mistysom-image && bitbake mistysom-image -c populate_sdk"
 		echo "copying compiled images & SDK directories into 'out/'"
 		cp -r $WORK/build/tmp/deploy/sdk/ ${OUTDIR}
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
+		cd ${OUTDIR}
+		rm smarc-rzv2l/bl2*
+		rm smarc-rzv2l/fip*
+		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec
+		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec
 	fi
 else
 	/bin/bash
