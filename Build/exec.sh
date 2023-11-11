@@ -32,9 +32,11 @@ then
 		time bitbake mistysom-image
 		echo "copying compiled images into 'out/'"
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
-		cd ${OUTDIR}
-		rm smarc-rzv2l/bl2*
-		rm smarc-rzv2l/fip*
+		cd ${OUTDIR}/images/smarc-rzv2l
+		rm bl*
+		rm fip*
+		rm Flash_Writer*
+		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_RZV2L.mot
 		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec
 		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec
 	else
