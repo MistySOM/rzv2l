@@ -1,4 +1,6 @@
 #!/bin/bash
+board="rzv2l"
+som="SOMV2L"
 set -e
 #Check hostname is a hexadecimal number of 12 
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
@@ -32,24 +34,20 @@ then
 		time bitbake mistysom-image
 		echo "copying compiled images into 'out/'"
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
-		cd ${OUTDIR}/images/smarc-rzv2l
-		rm bl*
-		rm fip*
-		rm Flash_Writer*
-		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_RZV2L.mot
-		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec
-		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec
 	else
 		time sh -c "bitbake mistysom-image && bitbake mistysom-image -c populate_sdk"
 		echo "copying compiled images & SDK directories into 'out/'"
 		cp -r $WORK/build/tmp/deploy/sdk/ ${OUTDIR}
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
-		cd ${OUTDIR}
-		rm smarc-rzv2l/bl2*
-		rm smarc-rzv2l/fip*
-		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec
-		wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec
 	fi
+ 	#manually fiup bootloader files in directory
+ 	cd ${OUTDIR}/images/smarc-${board}
+	rm bl*
+	m fip*
+	rm Flash_Writer*
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_${board^^}.mot
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-Misty${som}.srec
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-Misty${som}.srec
 else
 	/bin/bash
 fi
