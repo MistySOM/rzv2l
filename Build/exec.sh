@@ -1,6 +1,6 @@
 #!/bin/bash
-board="rzv2l"
-som="SOMV2L"
+#Use lower case to specify the CPU type ("v2l" or "g2l")
+TYPE="v2l"
 set -e
 #Check hostname is a hexadecimal number of 12 
 hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
@@ -45,9 +45,9 @@ then
 	rm bl*
 	m fip*
 	rm Flash_Writer*
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_${board^^}.mot
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-Misty${som}.srec
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-Misty${som}.srec
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_rz${TYPE}.mot
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOM${TYPE^^}.srec
+	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOM${TYPE^^}.srec
 else
 	/bin/bash
 fi
