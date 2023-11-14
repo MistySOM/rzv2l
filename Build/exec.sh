@@ -43,7 +43,7 @@ then
  	#manually fiup bootloader files in directory
  	cd ${OUTDIR}/images/smarc-${board}
 	rm bl*
-	m fip*
+	rm fip*
 	rm Flash_Writer*
 	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_rz${TYPE}.mot
 	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOM${TYPE^^}.srec
