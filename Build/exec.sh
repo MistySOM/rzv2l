@@ -41,7 +41,7 @@ then
 		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
 	fi
  	#manually fiup bootloader files in directory
- 	cd ${OUTDIR}/images/smarc-${board}
+ 	cd ${OUTDIR}/images/smarc-rz${TYPE}
 	rm bl*
 	rm fip*
 	rm Flash_Writer*
