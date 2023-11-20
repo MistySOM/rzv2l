@@ -48,9 +48,9 @@ then
 	rm bl*
 	rm fip*
 	rm Flash_Writer*
-	wget ${FLW_FILE_URL}
 	wget ${BL2_FILE_URL}
 	wget ${FIP_FILE_URL}
+	wget ${FLW_FILE_URL}
 else
 	/bin/bash
 fi
