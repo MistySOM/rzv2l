@@ -7,6 +7,9 @@ hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
 OUTDIR=$WORK/out
 echo $hname
 len=${#hname}
+FLW_FILE_URL="https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_RZV2L.mot"
+BL2_FILE_URL="https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOMV2L.srec"
+FIP_FILE_URL="https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOMV2L.srec"
 if [[ ! "$len" -eq 12 ]];
 then
     echo "ERROR: this script needs to be run inside the Yocto build container!"
@@ -45,9 +48,9 @@ then
 	rm bl*
 	rm fip*
 	rm Flash_Writer*
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/Flash_Writer_SCIF_rz${TYPE}.mot
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/bl2_bp-MistySOM${TYPE^^}.srec
-	wget https://github.com/MistySOM/wiki/blob/master/files/bootloader/rzv2l/fip-MistySOM${TYPE^^}.srec
+	wget ${FLW_FILE_URL}
+	wget ${BL2_FILE_URL}
+	wget ${FIP_FILE_URL}
 else
 	/bin/bash
 fi
