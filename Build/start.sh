@@ -30,7 +30,7 @@ then
 	7z x ~/oss_pkg_rzv_v3.0.0.7z
 fi
 ##Apply DRPAI patch
-echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai ai-eva-sw\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
+echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai opencv\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
 #echo "applying drpai patch"
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
