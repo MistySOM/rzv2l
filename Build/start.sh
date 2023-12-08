@@ -35,9 +35,6 @@ echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai opencv\"" >> ${WORK}/meta-mis
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
 
-## Update number of CPUs in local.conf
-(NUM_CPU=$(nproc) && echo "BB_NUMBER_THREADS = \"$((NUM_CPU*2))\"" >> ${LOCALCONF}) || :
-
 # Comment out the line that flags GPLv3 as an incompatible license
 sed -i '/^INCOMPATIBLE_LICENSE = \"GPLv3 GPLv3+\"/ s/./#&/' ${LOCALCONF}
 # append hostname to local.conf
