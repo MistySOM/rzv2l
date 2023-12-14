@@ -7,3 +7,12 @@
 [submodule "Build/meta-econsys"]
 	path = Build/meta-econsys
 	url = https://github.com/MistySOM/meta-econsys.git
+[submodule "Build/meta-iotedge"]
+	path = Build/meta-iotedge
+	url = https://github.com/Azure/meta-iotedge.git
+[submodule "Build/meta-rust"]
+	path = Build/meta-rust
+	url = https://github.com/meta-rust/meta-rust.git
+[submodule "Build/meta-clang"]
+	path = Build/meta-clang
+	url = https://github.com/kraj/meta-clang.git
