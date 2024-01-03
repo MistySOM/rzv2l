@@ -38,5 +38,8 @@ COPY exec.sh /home/yocto/
 COPY --chown=yocto:yocto meta-mistysom $WORK/meta-mistysom
 COPY --chown=yocto:yocto meta-mistylwb5p $WORK/meta-mistylwb5p
 COPY --chown=yocto:yocto meta-econsys $WORK/meta-econsys
+COPY --chown=yocto:yocto meta-iotedge $WORK/meta-iotedge
+COPY --chown=yocto:yocto meta-rust $WORK/meta-rust
+COPY --chown=yocto:yocto meta-clang $WORK/meta-clang
 
 CMD ["/home/yocto/exec.sh"]

@@ -60,6 +60,9 @@ EOT
 sed -i 's/renesas \\/&\n'\
 '  ${TOPDIR}\/..\/meta-mistysom \\\n'\
 '  ${TOPDIR}\/..\/meta-econsys \\\n'\
+'  ${TOPDIR}\/..\/meta-iotedge \\\n'\
+'  ${TOPDIR}\/..\/meta-rust \\\n'\
+'  ${TOPDIR}\/..\/meta-clang \\\n'\
 '  ${TOPDIR}\/..\/meta-mistylwb5p\/meta-summit-radio-pre-3.4 \\'\
 '/' ${WORK}/build/conf/bblayers.conf
 
