@@ -80,3 +80,5 @@ echo "    ------------------------------------------------
     'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
 
+# Added this for Edge Impulse support
+echo "CIP_CORE = \"Bullseye\"" >> ${LOCALCONF}
