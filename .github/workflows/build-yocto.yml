@@ -2,10 +2,10 @@ name: Build Yocto Image
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "master", "develop", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ "master", "develop", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
 
   # Allows you to run this workflow manually from the Actions tab
