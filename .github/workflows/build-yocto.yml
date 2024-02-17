@@ -27,6 +27,11 @@ jobs:
       run: |
         cd Build
         ./run.sh -c /home/github/rzv2l-cache
+        rm -rf output/rpm/*-dbg-*.rpm
+        rm -rf output/rpm/*-dev-*.rpm
+        rm -rf output/rpm/*-staticdev-*.rpm
+        rm -rf output/rpm/*-doc-*.rpm
+        rm -rf output/rpm/*-src-*.rpm
       
     - name: Upload image artifact
       uses: actions/upload-artifact@v3
