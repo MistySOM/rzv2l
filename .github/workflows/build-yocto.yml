@@ -21,17 +21,21 @@ jobs:
         submodules: recursive
     
     - name: Build the Docker image
-      run: cd Build && ./build.sh; 
+      working-directory: ./Build
+      run: ./build.sh;
     
     - name: Run the Docker container and build output files
-      run: |
-        cd Build
-        ./run.sh -c /home/github/rzv2l-cache
-        rm -rf output/rpm/*-dbg-*.rpm
-        rm -rf output/rpm/*-dev-*.rpm
-        rm -rf output/rpm/*-staticdev-*.rpm
-        rm -rf output/rpm/*-doc-*.rpm
-        rm -rf output/rpm/*-src-*.rpm
+      working-directory: ./Build
+      run: ./run.sh -c /home/github/rzv2l-cache
+
+    - name: Clean extra rpm packages
+      working-directory: ./Build/output/rpm
+      run: |        
+        rm -rf *-dbg-*.rpm
+        rm -rf *-dev-*.rpm
+        rm -rf *-staticdev-*.rpm
+        rm -rf *-doc-*.rpm
+        rm -rf *-src-*.rpm
       
     - name: Upload image artifact
       uses: actions/upload-artifact@v3
