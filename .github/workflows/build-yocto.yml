@@ -41,10 +41,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: output-image
+        compression-level: 0
         path: Build/output/images/smarc-rzv2l/mistysom-image-smarc-rzv2l.wic.bz2
 
     - name: Upload rpms artifact
       uses: actions/upload-artifact@v3
       with:
         name: output-rpms
+        compression-level: 0
         path: Build/output/rpm
