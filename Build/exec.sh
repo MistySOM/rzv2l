@@ -35,15 +35,17 @@ then
 	if [ -z $SDK ]; #if $SDK is not set
 	then
 		time bitbake mistysom-image
-		echo "copying compiled images into 'out/'"
-		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
 	else
 		time sh -c "bitbake mistysom-image && bitbake mistysom-image -c populate_sdk"
-		echo "copying compiled images & SDK directories into 'out/'"
+		echo "copying compiled SDK directories into 'out/'"
 		cp -r $WORK/build/tmp/deploy/sdk/ ${OUTDIR}
-		cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
 	fi
+	echo "copying compiled images into 'out/'"
+	cp -r $WORK/build/tmp/deploy/images/ ${OUTDIR}
+	echo "copying compiled rpms into 'out/'"
+	cp -r $WORK/build/tmp/deploy/rpm/ ${OUTDIR}
  	#manually fiup bootloader files in directory
+ 	echo "copying bootloader files into 'out/'"
  	cd ${OUTDIR}/images/smarc-rz${TYPE}
 	rm bl*
 	rm fip*
