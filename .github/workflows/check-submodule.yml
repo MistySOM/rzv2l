@@ -2,10 +2,10 @@ name: Check meta-mistysom Submodule
 
 on:
   push:
-    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
   pull_request:
-    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
 
   # Allows you to run this workflow manually from the Actions tab

@@ -2,10 +2,10 @@ name: Build Yocto Image
 
 on:
   push:
-    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
   pull_request:
-    branches: [ "master", "develop", "for-wifi-usb-dongle" ]
+    branches: [ "master", "develop", "for-wifi-usb-dongle", "Projects/**" ]
     paths-ignore: [ '**.md', '**.pdf', '**.yml' ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -16,21 +16,41 @@ jobs:
     runs-on: DC02
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4.1.1
       with:
         submodules: recursive
     
     - name: Build the Docker image
-      run: cd Build && ./build.sh; 
+      working-directory: ./Build
+      run: ./build.sh;
     
     - name: Run the Docker container and build output files
-      run: |
-        cd Build
-        ./run.sh -c /home/github/rzv2l-cache
-        cp output/images/smarc-rzv2l/*.wic.bz2 /home/github
+      working-directory: ./Build
+      run: ./run.sh -c /home/github/rzv2l-cache
+
+    - name: Clean extra rpm packages
+      working-directory: ./Build/output/rpm/aarch64
+      run: |        
+        rm -rf *-dbg-*.rpm
+        rm -rf *-dev-*.rpm
+        rm -rf *-staticdev-*.rpm
+        rm -rf *-doc-*.rpm
+        rm -rf *-src-*.rpm
+
+    - name: Pack rpm packages in a tarball
+      working-directory: ./Build/output/
+      run: tar -cf rpm.tar rpm
       
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+    - name: Upload image artifact
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: output-image
+        compression-level: 0
         path: Build/output/images/smarc-rzv2l/mistysom-image-smarc-rzv2l.wic.bz2
+
+    - name: Upload rpms artifact
+      uses: actions/upload-artifact@v4.3.1
+      with:
+        name: output-rpms
+        compression-level: 0
+        path: Build/output/rpm.tar
