@@ -36,7 +36,6 @@ COPY start.sh /home/yocto/
 COPY exec.sh /home/yocto/
 # copy mistysom layer from the submodule
 COPY --chown=yocto:yocto meta-mistysom $WORK/meta-mistysom
-COPY --chown=yocto:yocto meta-mistylwb5p $WORK/meta-mistylwb5p
 COPY --chown=yocto:yocto meta-econsys $WORK/meta-econsys
 COPY --chown=yocto:yocto meta-iotedge $WORK/meta-iotedge
 COPY --chown=yocto:yocto meta-rust $WORK/meta-rust
