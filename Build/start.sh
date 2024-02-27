@@ -32,13 +32,10 @@ echo "    CONFIGURATION COPIED TO conf/"
 #	7z x ~/oss_pkg_rzv_v3.0.0.7z
 #fi
 ##Apply DRPAI patch
-echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai ai-eva-sw\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
+echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai opencv\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
 #echo "applying drpai patch"
 #patch -p2 < ../rzv2l-drpai-conf.patch
 #echo "drpai patch applied"
-
-## Update number of CPUs in local.conf
-(NUM_CPU=$(nproc) && echo "BB_NUMBER_THREADS = \"$((NUM_CPU*2))\"" >> ${LOCALCONF}) || :
 
 # Comment out the line that flags GPLv3 as an incompatible license
 sed -i '/^INCOMPATIBLE_LICENSE = \"GPLv3 GPLv3+\"/ s/./#&/' ${LOCALCONF}
