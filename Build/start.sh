@@ -19,7 +19,6 @@ git config --global user.name "Yocto"
 git config --global url.https://github.com/.insteadOf git://github.com/
 
 cd $WORK
-ls -l
 source poky/oe-init-build-env
 cd $WORK/build
 cp ../meta-renesas/docs/template/conf/smarc-rzv2l/*.conf ./conf/

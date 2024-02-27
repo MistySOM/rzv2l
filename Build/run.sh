@@ -67,5 +67,5 @@ else
 	#Create CPATH sub directories if they do not exist
 	mkdir -p ${CPATH}/downloads
 	mkdir -p ${CPATH}/sstate-cache/${MPU}
-	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/${DIRNAME}/out -v "${CPATH}/downloads":/home/yocto/${DIRNAME}/build/downloads -v "${CPATH}/sstate-cache/${MPU}/":/home/${DIRNAME}/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
+	/usr/bin/docker run --privileged ${USE_TTY} --rm -v "${PWD}/${OUTDIR}":/home/yocto/${DIRNAME}/out -v "${CPATH}/downloads":/home/yocto/${DIRNAME}/build/downloads -v "${CPATH}/sstate-cache/${MPU}/":/home/yocto/${DIRNAME}/build/sstate-cache -e NO=${NO} -e SDK=${SDK} -e DLOAD=${DLOAD} --name ${CONTNAME} ${CONTNAME}
 fi
