@@ -26,11 +26,6 @@ cp ../meta-renesas/docs/template/conf/smarc-rzv2l/*.conf ./conf/
 echo "    ------------------------------------------------"
 echo "    CONFIGURATION COPIED TO conf/"
 #Decompress OSS files (offline install)
-#if [ -z $DLOAD ];
-#then
-#	cd $WORK/build
-#	7z x ~/oss_pkg_rzv_v3.0.0.7z
-#fi
 ##Apply DRPAI patch
 echo "IMAGE_INSTALL_append = \" gstreamer1.0-drpai opencv\"" >> ${WORK}/meta-mistysom/recipes-core/images/mistysom-image.bbappend
 #echo "applying drpai patch"
@@ -72,7 +67,6 @@ rm -rf ${WORK}/meta-mistylwb5p/meta-summit-radio-pre-3.4/recipes-packages/summit
 
 # add dunfell compatibility to layers where they're missing to avoid WARNING
 echo "LAYERSERIES_COMPAT_qt5-layer = \"dunfell\"" >> ${WORK}/meta-qt5/conf/layer.conf
-#echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${WORK}/meta-rz-features/conf/layer.conf 
 echo "LAYERSERIES_COMPAT_summit-radio-pre-3.4 = \"dunfell\"" >> ${WORK}/meta-mistylwb5p/meta-summit-radio-pre-3.4/conf/layer.conf
 
 echo "    ------------------------------------------------

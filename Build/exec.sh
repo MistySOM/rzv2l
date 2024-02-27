@@ -20,36 +20,17 @@ then
 	echo "Unable to obtain full acess  permissions to 'output' and its sub directories, edit the permissions of 'output' accordingly! exit"
 	exit -1
 fi
-echo "WORK: $WORK"
-ls -l $WORK/build
-
-
-if [[ -d $WORK/build/downloads ]];
+if [[ ! -w $WORK/build/sstate-cache || ! -w $WORK/build/downloads ]];
 then
-	echo "downloads exists"
-	ls -l $WORK/build/downloads
-	if [[ ! -w  $WORK/build/downloads ]];
-	then
-		echo "Unable to obtain write permissions to downloads and its sub directories, edit the permissions of 'cache/downloads' accordingly! exit"
-		exit -1
-	fi
+	echo "Unable to obtain write permissions to 'cache' and its sub directories, edit the permissions of 'cache' accordingly! exit"
+	exit -1
 fi
-if [[ -d $WORK/build/sstate-cache ]];
-then
-	echo "sstate-cache exists"
-	ls -l $WORK/build/sstate-cache
-	if [[ ! -w $WORK/build/sstate-cache ]];
-	then
-		echo "Unable to obtain write permisions to sstate-cache directory, edit permissions of 'cache/sstate-cache' accordingly! exit"
-		exit -1
-	fi
-fi
+
 
 ./start.sh
 if [ -z $NO ];
 then
 	cd $WORK
-	ls -l 
 	source poky/oe-init-build-env
 	if [ -z $SDK ]; #if $SDK is not set
 	then
