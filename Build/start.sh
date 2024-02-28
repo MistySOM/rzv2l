@@ -75,11 +75,9 @@ echo "    ------------------------------------------------
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
 cd ~
+
 # Copy inc files to fix the shortcomings in Renesas' BSP
 cp ~/inc/openssl.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
 cp ~/inc/glib2.0.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
 git config --global --add safe.directory "*"
 
-# temporarily comment out the patches 
- sed -i '/pca6408_ioexpander_support/s/^/#/' ~/rzv_vlp_v3.0.4/meta-econsys/recipes-kernel/linux/linux-renesas_5.10.bbappend
- sed -i '/\/dts:/,+4 s/^/#/' ~/rzv_vlp_v3.0.4/meta-mistysom/recipes-kernel/linux/linux-renesas_%.bbappend 
