@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ "$1" == "-b" ]; then
-	IMAGE_NAME="$(whoami)-rzv2l_vlp_v3.0.0_$(git branch --show-current | awk '{print tolower($0)}' | sed 's/\//_/g')"
+	IMAGE_NAME="$(whoami)-rzv2l_vlp_v3.0.0_$(git branch --show-current)"
 else
 	IMAGE_NAME="$(whoami)-rzv2l_vlp_v3.0.0"
 fi
