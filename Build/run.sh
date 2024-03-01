@@ -27,7 +27,7 @@ fi
 while [[ $# -gt 0 ]]; do
     case $1 in
       -b|--branch)
-        BRANCH="_$(git branch --show-current)"
+        BRANCH="_$(git branch --show-current | awk '{print tolower($0)}' | sed 's/\//_/g')"
         shift #past argument
       ;;
       -c|--cpath)
