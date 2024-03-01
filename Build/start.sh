@@ -82,4 +82,4 @@ echo "    ------------------------------------------------
     'source poky/oe-init-build-env'
     'bitbake mistysom-image'"
 cd ~/rzv_vlp_v3.0.0
-echo "CIP_CORE = \"Bullseye\"" >> ${LOCALCONF}
+
