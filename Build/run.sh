@@ -5,7 +5,7 @@ NAME="rzv2l_vlp_v3.0.4"
 usage() {
     echo "    Usage:
     $ $0 -b|--branch :	attach current branch name when running the container
-    $ $0 -c|--cpath :	path to local cache (download & sstate)
+    $ $0 -c|--cpath :	path to local cache ('download/' & 'sstate/')
     $ $0 -n|--no :	starts container but does not invoke bitbake,
 				start in developer mode
      $ $0 -s|--sdk :	invokes building of SDK

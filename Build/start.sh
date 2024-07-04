@@ -4,7 +4,7 @@ set -e
 #Check hostname is a hexadecimal number of 12 
 SOMHOSTNAME="MistySOM-V2L"
 LOCALCONF="${WORK}/build/conf/local.conf"
-hname=`hostname | egrep -o '^[0-9a-f]{12}\b'`
+hname=`hostname | grep -E -o '^[0-9a-f]{12}\b'`
 echo $hname
 len=${#hname}
 if [ "$len" -eq 12 ];
