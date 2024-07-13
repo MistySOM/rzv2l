@@ -1,5 +1,6 @@
 #!/bin/bash
 NAME="rzv2l_vlp_v3.0.4"
+INCLUDE_BRANCH=0
 Help()
 {
    echo "This script createss the build container for MistySOM G2L or V2L."
