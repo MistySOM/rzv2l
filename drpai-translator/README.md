@@ -1,5 +1,5 @@
 
-# drpai=translator
+# drpai-translator
 
 ## Description
 This directory contains files, to create a containeriage with drpai-translator 1.84 installed. The DRP-AI Translator is a software tool for translating neural network models of ONNX format into DRP-AI object files for target MistySOM-V2L.
