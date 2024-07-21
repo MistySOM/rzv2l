@@ -6,4 +6,4 @@ This directory contains files, to create a containeriage with drpai-translator 1
 ## Usage 
 
 * `build.sh` builds the container image and downloads and installs all the drpai-translator dependencies.
-* `run.sh` runs the container image. The drpai-translator and its files are installed in `/home/drpai/` inside the container.
+* `run.sh` runs the container image. The drpai-translator and its files are installed in `/home/drpai/drp-ai_translator_release/` inside the container.
