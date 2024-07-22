@@ -4,12 +4,12 @@ ENV HOME=/home/drpai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # update and upgrade to latest & greatest
 RUN apt -y update 
-#RUN apt -y upgrade
+RUN apt -y upgrade
 # Install packages
 RUN apt-get -y install python libgl1-mesa-dev wget libopencv-dev \
-                       python3-pip sudo unzip
+                       python3-pip sudo unzip locales
 # Set the locale
-#RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
