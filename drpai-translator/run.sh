@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -it drp-ai-translator
+docker run -it -w /home/drpai/drp-ai_translator_release/ drp-ai-translator
