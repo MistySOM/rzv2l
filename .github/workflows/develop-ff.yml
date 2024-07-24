@@ -3,7 +3,6 @@ name: FastForward Develop to match Master
 on:
   push:
     branches: [ "master" ]
-    paths: [ "Build/**" ]
 
 jobs:
   fast-forward-develop:

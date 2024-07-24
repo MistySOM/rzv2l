@@ -3,7 +3,6 @@ name: Merge master if all reviews are approved
 on:
   pull_request_review:
     types: [submitted]
-    paths: [ "Build/**" ]
 
 jobs:
   merge_job:
