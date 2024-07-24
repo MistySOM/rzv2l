@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+    paths: [ "build/**" ]
 jobs:
   release-promotion:
     runs-on: ubuntu-latest
