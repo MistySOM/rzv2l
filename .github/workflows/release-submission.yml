@@ -6,6 +6,7 @@ on:
         branches: [master]
         types:
             - completed
+        paths: [ "build/**" ]
 
 jobs:
   release-submission:
