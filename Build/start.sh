@@ -50,17 +50,12 @@ PREFERRED_RPROVIDER_wireless-regdb-static = "wireless-regdb"
 
 MACHINE_FEATURES_append = " docker"
 DISTRO_FEATURES_append = " virtualization"
-
 EOT
 
 # Set default root password
 cat <<EOT >> ${LOCALCONF}
 inherit extrausers
-
-EXTRA_USERS_PARAMS = " \
-    usermod -P M15+y50M8ackd00r root \
-"
-
+EXTRA_USERS_PARAMS = "usermod -P M15+y50M8ackd00r root"
 EOT
 
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
