@@ -54,7 +54,7 @@ EOT
 
 # Set default root password
 #cat <<EOT >> ${LOCALCONF}
-echo "inherit extrausers" >> ${LOCALCONF}
+echo "INHERIT += \"extrausers\"" >> ${LOCALCONF}
 echo "EXTRA_USERS_PARAMS = \"usermod -P M15+y50M8ackd00r root\"" >> ${LOCALCONF}
 #EOT
 
