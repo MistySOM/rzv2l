@@ -55,7 +55,7 @@ EOT
 # Set default root password
 #cat <<EOT >> ${LOCALCONF}
 echo "INHERIT += \"extrausers\"" >> ${LOCALCONF}
-echo "EXTRA_USERS_PARAMS = \"usermod -P M15+y50M8ackd00r root\"" >> ${LOCALCONF}
+echo "EXTRA_USERS_PARAMS = \"usermod -P root root\"" >> ${LOCALCONF}
 #EOT
 
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
