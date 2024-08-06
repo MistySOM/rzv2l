@@ -52,6 +52,12 @@ MACHINE_FEATURES_append = " docker"
 DISTRO_FEATURES_append = " virtualization"
 EOT
 
+# Set default root password
+#cat <<EOT >> ${LOCALCONF}
+echo "INHERIT += \"extrausers\"" >> ${LOCALCONF}
+echo "EXTRA_USERS_PARAMS = \"usermod -P root root\"" >> ${LOCALCONF}
+#EOT
+
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
 sed -i 's/meta-rz-common \\/&\n'\
 '  ${TOPDIR}\/..\/meta-rz-features\/meta-rz-drpai \\\n'\
