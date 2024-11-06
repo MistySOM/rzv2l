@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -e
-DIRNAME="rzv_vlp_v3.0.4"
-NAME="rzv2l_vlp_v3.0.4"
+DIRNAME="rzv_vlp_v3.0.6"
+NAME="rzv2l_vlp_v3.0.6"
 usage() {
     echo "    Usage:
     $ $0 -b|--branch :	attach current branch name when running the container
