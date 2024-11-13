@@ -53,10 +53,15 @@ DISTRO_FEATURES_append = " virtualization"
 EOT
 
 # Set default root password
-#cat <<EOT >> ${LOCALCONF}
 echo "INHERIT += \"extrausers\"" >> ${LOCALCONF}
-echo "EXTRA_USERS_PARAMS = \"usermod -P root root\"" >> ${LOCALCONF}
-#EOT
+cat << EOF >> ${LOCALCONF}
+EXTRA_USERS_PARAMS = "\
+    usermod -P root root; \
+    useradd -r -m -G users aziotcs; \
+    usermod -p \$(openssl passwd -1 aziotcs) aziotcs; \
+    useradd -r -m -G users aziotks; \
+    usermod -p \$(openssl passwd -1 aziotks) aziotks;"
+EOF
 
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
 sed -i 's/meta-rz-common \\/&\n'\
