@@ -1,5 +1,8 @@
 #!/bin/bash
 NAME="rzv_vlp_v3.0.4"
+PWD_AZIOTCS='$1$/TksKPlc$t/8X2Bjl81nl6zEbNiSJI1'
+PWD_AZIOTKS='$1$EIsJ/1m.$J5jbUfgT7Jh4Wt6T9hREc0'
+PWD_ROOT='$1$2oJtkdST$MnlOjU0PkWQmCh7U5DcLq/'
 set -e
 #Check hostname is a hexadecimal number of 12 
 SOMHOSTNAME="MistySOM-V2L"
@@ -56,11 +59,11 @@ EOT
 echo "INHERIT += \"extrausers\"" >> ${LOCALCONF}
 cat << EOF >> ${LOCALCONF}
 EXTRA_USERS_PARAMS = "\
-    usermod -P root root; \
+    usermod -P $PWD_ROOT root; \
     useradd -r -m -G users aziotcs; \
-    usermod -p \$(openssl passwd -1 aziotcs) aziotcs; \
+    usermod -p $PWD_AZIOTCS aziotcs; \
     useradd -r -m -G users aziotks; \
-    usermod -p \$(openssl passwd -1 aziotks) aziotks;"
+    usermod -p $PWD_AZIOTKS aziotks;"
 EOF
 
 #addition of meta-mistysom & mistylwb5p layers to bblayers.conf
