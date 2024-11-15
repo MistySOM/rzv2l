@@ -1,5 +1,5 @@
 #!/bin/bash
-NAME="rzv_vlp_v3.0.4"
+NAME="rzv_vlp_v3.0.6"
 set -e
 #Check hostname is a hexadecimal number of 12 
 SOMHOSTNAME="MistySOM-V2L"
@@ -45,6 +45,8 @@ fi
 cat <<EOT >> ${LOCALCONF}
 MACHINE_FEATURES_append = " docker"
 DISTRO_FEATURES_append = " virtualization"
+
+CIP_MODE = "Bullseye"
 EOT
 
 # Set default root password
@@ -68,16 +70,12 @@ rm -rf ${WORK}/meta-mistylwb5p/meta-summit-radio-pre-3.4/recipes-packages/summit
 echo "LAYERSERIES_COMPAT_qt5-layer = \"dunfell\"" >> ${WORK}/meta-qt5/conf/layer.conf
 echo "LAYERSERIES_COMPAT_rz-features = \"dunfell\"" >> ${WORK}/meta-rz-features/conf/layer.conf 
 
-echo "    ------------------------------------------------
-    SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
-    run the following commands to start the build:
-    'cd ${WORK}'
-    'source poky/oe-init-build-env'
-    'bitbake mistysom-image'"
+git config --global --add safe.directory "*"
 cd ~
 
-# Copy inc files to fix the shortcomings in Renesas' BSP
-cp ~/inc/openssl.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
-cp ~/inc/glib2.0.inc ~/rzv_vlp_v3.0.4/meta-renesas/meta-rz-common/recipes-debian/buster/sources/
-git config --global --add safe.directory "*"
-
+echo "    ------------------------------------------------
+	SETUP SCRIPT BUILD ENVIRONMENT SETUP SUCCESSFUL!
+	run the following commands to start the build:
+	'cd ${WORK}'
+	'source poky/oe-init-build-env'
+	'bitbake mistysom-image'"
