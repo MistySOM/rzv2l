@@ -20,12 +20,14 @@ then
 	echo "Unable to obtain full acess  permissions to 'output' and its sub directories, edit the permissions of 'output' accordingly! exit"
 	exit -1
 fi
+
+mkdir -p $WORK/build/sstate-cache
+mkdir -p $WORK/build/downloads
 if [[ ! -w $WORK/build/sstate-cache || ! -w $WORK/build/downloads ]];
 then
 	echo "Unable to obtain write permissions to 'cache' and its sub directories, edit the permissions of 'cache' accordingly! exit"
 	exit -1
 fi
-
 
 ./start.sh
 if [ -z $NO ];
