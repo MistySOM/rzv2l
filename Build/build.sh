@@ -26,7 +26,8 @@ while getopts ":hb" option; do
 done
 
 if [ $INCLUDE_BRANCH -eq 1 ]; then
-	IMAGE_NAME="$(whoami)-${NAME}_$(git branch --show-current)"
+	BRANCH_NAME=$(git branch --show-current | tr '[:upper:]' '[:lower:]' | sed 's|/|_|g')
+	IMAGE_NAME="$(whoami)-${NAME}_${BRANCH_NAME}"
 else
 	IMAGE_NAME="$(whoami)-${NAME}"
 fi
