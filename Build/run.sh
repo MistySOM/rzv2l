@@ -28,7 +28,7 @@ fi
 while [[ $# -gt 0 ]]; do
     case $1 in
       -b|--branch)
-        BRANCH=$(git branch --show-current | tr '[:upper:]' '[:lower:]' | sed 's|/|_|g')
+        BRANCH="_$(git branch --show-current | tr '[:upper:]' '[:lower:]' | sed 's|/|_|g')"
         shift #past argument
       ;;
       -c|--cpath)
@@ -56,7 +56,7 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 done
-CONTNAME="$(whoami)-${NAME}_${BRANCH}"
+CONTNAME="$(whoami)-${NAME}${BRANCH}"
 #Create OUTDIR if it doesn't exist and chmod it to 777
 mkdir -p ${OUTDIR}
 chmod 777 ${OUTDIR}
