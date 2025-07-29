@@ -1,7 +1,7 @@
 
 # README
 
-## VerifiedLinuxPackage_v3.0.0
+## VerifiedLinuxPackage_v3.0.6
 
 ### Description
 
@@ -66,7 +66,7 @@ Make sure to work with files on Linux mounts (avoid use of mounted Windows parti
 
 ### Files 
 Filesthat get downloaded by the Dockerfile on build are stored under:
-Z:\WebDownload\mh11\rzv2l\VerifiedLinuxPackage_v3.0.0
+Z:\WebDownload\mh11\rzv2l\VerifiedLinuxPackage_v3.0.6
 
 ### Run time information
  - `./build.sh` Builds the container image from the Dockerfile and downloads the required files, from the above resource
